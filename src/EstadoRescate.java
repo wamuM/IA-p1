@@ -436,17 +436,20 @@ public class EstadoRescate {
      * Para cada helicóptero, buscamos cuándo termina la última salida que contiene un grupo P1.
      */
     public double calcularTiempoPrioridad1() {
-        double maxTiempo = 0.0;
+        double tiempoTotal = 0.0;
         for (int h = 0; h < nHelicopteros; h++) {
-            double tiempoAcum = 0.0;
+            double tiempoH = 0.0;
+            double tiempoExtra = 0.0;
             for (int s = 0; s < nSalidas[h]; s++) {
-                tiempoAcum += calcularTiempoSalida(h, s);
-                if (salidaContieneP1(h, s)) {
-                    if (tiempoAcum > maxTiempo) maxTiempo = tiempoAcum - TIEMPO_RECARGA_MIN;
-                }
+                double tiempoSalida = calcularTiempoSalida(h, s);
+                tiempoH += tiempoSalida;
+                if (salidaContieneP1(h, s)){
+                    tiempoExtra = 0.0; 
+                }else tiempoExtra += tiempoSalida;
             }
+            tiempoTotal += tiempoH - tiempoExtra - TIEMPO_RECARGA_MIN;
         }
-        return maxTiempo;
+        return tiempoTotal;
     }
 
     private boolean salidaContieneP1(int h, int s) {
