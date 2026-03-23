@@ -11,7 +11,7 @@ all: compile
 
 compile:
 	mkdir -p $(BIN_DIR)
-	javac -cp "$(LIB_DIR)/*:$(SRC_DIR)" -d $(BIN_DIR) $(SOURCES)
+	javac -encoding UTF-8 -cp "$(LIB_DIR)/*:$(SRC_DIR)" -d $(BIN_DIR) $(SOURCES)
 
 run: compile
 	java -cp "$(CP)" $(MAIN)
