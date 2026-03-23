@@ -417,7 +417,7 @@ public class EstadoRescate {
         for (int s = 0; s < nSalidas[h]; s++) {
             total += calcularTiempoSalida(h, s);
         }
-        return total;
+        return total - TIEMPO_RECARGA_MIN;
     }
 
     /**
@@ -441,9 +441,8 @@ public class EstadoRescate {
             double tiempoAcum = 0.0;
             for (int s = 0; s < nSalidas[h]; s++) {
                 tiempoAcum += calcularTiempoSalida(h, s);
-                if (s < nSalidas[h] - 1) tiempoAcum += TIEMPO_RECARGA_MIN;
                 if (salidaContieneP1(h, s)) {
-                    if (tiempoAcum > maxTiempo) maxTiempo = tiempoAcum;
+                    if (tiempoAcum > maxTiempo) maxTiempo = tiempoAcum - TIEMPO_RECARGA_MIN;
                 }
             }
         }
