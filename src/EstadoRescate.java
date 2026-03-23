@@ -339,6 +339,37 @@ public class EstadoRescate {
         return true;
     }
 
+    //OPERADOR 4: Fusionar dos salidas del mismo helicóptero en una sola
+    public boolean fusionarSalidas(int h, int s1, int s2) {
+        if (s1 == s2) return false;
+        if (s1 >= nSalidas[h] || s2 >= nSalidas[h]) return false;
+
+        int gruposS1 = gruposEnSalida(h, s1);
+        int gruposS2 = gruposEnSalida(h, s2);
+        int personasS1 = personasEnSalida(h, s1);
+        int personasS2 = personasEnSalida(h, s2);
+
+        if (gruposS1 + gruposS2 > MAX_GRUPOS_POR_SALIDA) return false;
+        if (personasS1 + personasS2 > MAX_PERSONAS_HELICOPTERO) return false;
+
+        // Mover todos los grupos de s2 a s1
+        for (int g = 0; g < nGrupos; g++) {
+            if (asignacion[g] == h && salidas[g] == s2) {
+                salidas[g] = s1;
+            }
+        }
+
+        // Reajustar: la sortida s2 queda buida
+        reajustarAsignacionAnterior(h, s2);
+
+        return true;
+    }
+
+    //OPERADOR 5: Mover grupo al mejor helicóptero con una salida
+    public boolean moverGrupoACercano(int g, int nuevaS) {
+        int nuevoH = mejorHelicoptero(g);
+        return moverGrupo(g, nuevoH, nuevaS);
+    }
 
 
     // -----------------------------------------------------------------------
