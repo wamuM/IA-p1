@@ -2,6 +2,7 @@ SRC_DIR = src
 LIB_DIR = lib
 BIN_DIR = bin
 MAIN = MainRescate
+EXP1 = Experimento1Operadores
 
 # Separador del classpath
 CPSEP_LINUX = :
@@ -34,6 +35,12 @@ run: compile-linux
 
 run-w: compile-w
 	java -cp "$(CP_RUN_WINDOWS)" $(MAIN)
+
+exp1: compile-linux
+	java -cp "$(CP_RUN_LINUX)" $(EXP1)
+
+exp1-w: compile-w
+	java -cp "$(CP_RUN_WINDOWS)" $(EXP1)
 
 clean:
 	rm -rf $(BIN_DIR)
