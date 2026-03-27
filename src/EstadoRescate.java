@@ -137,6 +137,7 @@ public class EstadoRescate {
 
         for(int g = 0; g < nGrupos; ++g) {
             boolean asignado = false;
+            int intentos = 0;
             while(!asignado) {
                 int h = random.nextInt(nHelicopteros);
                 if(nSalidas[h] > 0) {
@@ -152,6 +153,15 @@ public class EstadoRescate {
                     asignacion[g] = h;
                     salidas[g] = 0;
                     nSalidas[h]++;
+                }
+
+                // Evita bucle infinito: si no cabe en salidas existentes, crea una salida nueva
+                if (!asignado && ++intentos > 10 * nHelicopteros) {
+                    int h2 = random.nextInt(nHelicopteros);
+                    asignacion[g] = h2;
+                    salidas[g] = nSalidas[h2];
+                    nSalidas[h2]++;
+                    asignado = true;
                 }
             }
         }
@@ -178,6 +188,7 @@ public class EstadoRescate {
 
         for(int g: todosGrupos ) {
             boolean asignado = false;
+            int intentos = 0;
             while(!asignado) {
                 int h = random.nextInt(nHelicopteros);
                 if(nSalidas[h] > 0) {
@@ -193,6 +204,15 @@ public class EstadoRescate {
                     asignacion[g] = h;
                     salidas[g] = 0;
                     nSalidas[h]++;
+                }
+
+                // Evita bucle infinito: fallback a nueva salida tras demasiados intentos
+                if (!asignado && ++intentos > 10 * nHelicopteros) {
+                    int h2 = random.nextInt(nHelicopteros);
+                    asignacion[g] = h2;
+                    salidas[g] = nSalidas[h2];
+                    nSalidas[h2]++;
+                    asignado = true;
                 }
             }
         }
