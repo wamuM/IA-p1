@@ -7,6 +7,7 @@ import aima.search.informed.HillClimbingSearch;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
 
@@ -121,10 +122,7 @@ public class Experimento1Operadores {
                                  GoalTest goal,
                                  HeuristicFunction h) throws Exception {
 
-        System.out.printf("%-28s  %10s  %10s  %10s  %10s%n",
-                "Operadors", "mitjana", "millor", "pitjor", "ms_mitja");
-        System.out.printf("%-28s  %10s  %10s  %10s  %10s%n",
-                "----------------------------", "----------", "----------", "----------", "----------");
+        System.out.println("operadors;mitjana;millor;pitjor;ms_mitja");
 
         for (Map.Entry<String, SuccessorFunction> entry : operatorSets.entrySet()) {
             String name = entry.getKey();
@@ -151,7 +149,7 @@ public class Experimento1Operadores {
                 tstats.addNanos(t1 - t0);
             }
 
-            System.out.printf("%-28s  %10.2f  %10.2f  %10.2f  %10.0f%n",
+            System.out.printf(Locale.US, "%s;%.2f;%.2f;%.2f;%.0f%n",
                     name, stats.mean(), stats.min, stats.max, tstats.meanMillis());
         }
     }

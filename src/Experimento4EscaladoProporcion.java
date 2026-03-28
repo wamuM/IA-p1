@@ -7,6 +7,7 @@ import aima.search.informed.SimulatedAnnealingSearch;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 /**
@@ -84,9 +85,7 @@ public class Experimento4EscaladoProporcion {
         System.out.println("Repeticiones por tamaño: " + reps + " (baseSeed=" + baseSeed + ")");
         System.out.println();
 
-        System.out.printf("%-8s  %-8s  %-10s  %-10s  %-10s  %-10s%n",
-                "centros", "grupos", "HC_ms", "HC_coste", "SA_ms", "SA_coste");
-        System.out.println("--------  --------  ----------  ----------  ----------  ----------");
+        System.out.println("centros;grupos;HC_ms;HC_coste;SA_ms;SA_coste");
 
         for (int centros = startCentros; centros <= maxCentros; centros += stepCentros) {
             int grupos = centros * 20; // proporción 5:100 -> 1:20
@@ -122,7 +121,7 @@ public class Experimento4EscaladoProporcion {
                 saMs.addNanos(s1 - s0);
             }
 
-            System.out.printf("%-8d  %-8d  %-10.0f  %-10.2f  %-10.0f  %-10.2f%n",
+            System.out.printf(Locale.US, "%d;%d;%.0f;%.2f;%.0f;%.2f%n",
                     centros, grupos,
                     hcMs.meanMillis(), hcCost.mean(),
                     saMs.meanMillis(), saCost.mean());

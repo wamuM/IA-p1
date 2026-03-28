@@ -7,6 +7,7 @@ import aima.search.informed.HillClimbingSearch;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
 
@@ -77,10 +78,7 @@ public class Experimento2Inicializacion {
                 SucesorHCOperadorAislado.OP_INTERCAMBIAR
         );
 
-        System.out.printf("%-18s  %10s  %10s  %10s  %10s%n",
-                "Inicialització", "mitjana", "millor", "pitjor", "ms_mitja");
-        System.out.printf("%-18s  %10s  %10s  %10s  %10s%n",
-                "------------------", "----------", "----------", "----------", "----------");
+        System.out.println("inicialitzacio;mitjana;millor;pitjor;ms_mitja");
 
         for (Map.Entry<String, InitStrategy> e : strategies.entrySet()) {
             String name = e.getKey();
@@ -105,7 +103,7 @@ public class Experimento2Inicializacion {
                 tstats.addNanos(t1 - t0);
             }
 
-            System.out.printf("%-18s  %10.2f  %10.2f  %10.2f  %10.0f%n",
+            System.out.printf(Locale.US, "%s;%.2f;%.2f;%.2f;%.0f%n",
                     name, stats.mean(), stats.min, stats.max, tstats.meanMillis());
         }
 

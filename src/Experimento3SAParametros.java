@@ -7,6 +7,7 @@ import aima.search.informed.SimulatedAnnealingSearch;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 /**
@@ -111,12 +112,10 @@ public class Experimento3SAParametros {
 
         rows.sort(Comparator.comparingDouble(r -> r.mean));
 
-        System.out.printf("%-5s  %-6s  %-6s  %-9s  %-10s  %-10s  %-10s  %-10s%n",
-                "steps", "stiter", "k", "lambda", "mitjana", "millor", "pitjor", "ms_mitja");
-        System.out.println("-----  ------  ------  ---------  ----------  ----------  ----------  ----------");
+        System.out.println("steps;stiter;k;lambda;mitjana;millor;pitjor;ms_mitja");
 
         for (Row r : rows) {
-            System.out.printf("%-5d  %-6d  %-6d  %-9.6f  %-10.2f  %-10.2f  %-10.2f  %-10.0f%n",
+            System.out.printf(Locale.US, "%d;%d;%d;%.6f;%.2f;%.2f;%.2f;%.0f%n",
                     r.steps, r.stiter, r.k, r.lambda, r.mean, r.best, r.worst, r.meanMs);
         }
 
@@ -124,7 +123,7 @@ public class Experimento3SAParametros {
         System.out.println("Top 3 (menor mitjana):");
         for (int i = 0; i < Math.min(3, rows.size()); i++) {
             Row r = rows.get(i);
-            System.out.printf("%d) steps=%d stiter=%d k=%d lambda=%.6f | mitjana=%.2f ms=%.0f%n",
+            System.out.printf(Locale.US, "%d) steps=%d stiter=%d k=%d lambda=%.6f | mitjana=%.2f ms=%.0f%n",
                     i + 1, r.steps, r.stiter, r.k, r.lambda, r.mean, r.meanMs);
         }
     }
